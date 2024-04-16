@@ -669,10 +669,10 @@ def main(args):
     noise_scheduler = DDPMScheduler.from_pretrained(args.pretrained_model_name_or_path, subfolder="scheduler")
     # Check for terminal SNR in combination with SNR Gamma
     text_encoder_one = text_encoder_cls_one.from_pretrained(
-        args.pretrained_model_name_or_path, subfolder="text_encoder", revision=args.revision, variant=args.variant
+        args.pretrained_model_name_or_path, subfolder="text_encoder", revision=args.revision, variant=args.variant, from_tf=True
     )
     text_encoder_two = text_encoder_cls_two.from_pretrained(
-        args.pretrained_model_name_or_path, subfolder="text_encoder_2", revision=args.revision, variant=args.variant
+        args.pretrained_model_name_or_path, subfolder="text_encoder_2", revision=args.revision, variant=args.variant, from_tf=True
     )
     vae_path = (
         args.pretrained_model_name_or_path
@@ -684,9 +684,10 @@ def main(args):
         subfolder="vae" if args.pretrained_vae_model_name_or_path is None else None,
         revision=args.revision,
         variant=args.variant,
+        from_tf=True
     )
     unet = UNet2DConditionModel.from_pretrained(
-        args.pretrained_model_name_or_path, subfolder="unet", revision=args.revision, variant=args.variant
+        args.pretrained_model_name_or_path, subfolder="unet", revision=args.revision, variant=args.variant, from_tf=True
     )
 
     # Freeze vae and text encoders.
